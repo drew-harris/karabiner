@@ -13,6 +13,18 @@ type HyperKeySublayer = {
   [key_code in KeyCode]?: LayerCommand;
 };
 
+let alpha = "abcdefghijklmnopqrstuvwxyz".split("");
+export function generateUnsetForEveryKey(): To[] {
+  return alpha.map((letter) => ({
+    // key_code: letter as any,
+    set_variable: {
+      name: `hyper_sublayer_${letter}`,
+      value: 0,
+    },
+    modifiers: ['any'],
+  }));
+}
+
 /**
  * Create a Hyper Key sublayer, where every command is prefixed with a key
  * e.g. Hyper + O ("Open") is the "open applications" layer, I can press
@@ -36,16 +48,16 @@ export function createHyperSubLayer(
           optional: ["any"],
         },
       },
-      to_after_key_up: [
-        {
-          set_variable: {
-            name: subLayerVariableName,
-            // The default value of a variable is 0: https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/conditions/variable/
-            // That means by using 0 and 1 we can filter for "0" in the conditions below and it'll work on startup
-            value: 0,
-          },
-        },
-      ],
+      // to_after_key_up: [
+      //   {
+      //     set_variable: {
+      //       name: subLayerVariableName,
+      //       // The default value of a variable is 0: https://karabiner-elements.pqrs.org/docs/json/complex-modifications-manipulator-definition/conditions/variable/
+      //       // That means by using 0 and 1 we can filter for "0" in the conditions below and it'll work on startup
+      //       value: 0,
+      //     },
+      //   },
+      // ],
       to: [
         {
           set_variable: {
@@ -113,40 +125,40 @@ export function createHyperSubLayers(subLayers: {
   return Object.entries(subLayers).map(([key, value]) =>
     "to" in value
       ? {
-          description: `Hyper Key + ${key}`,
-          manipulators: [
-            {
-              ...value,
-              type: "basic" as const,
-              from: {
-                key_code: key as KeyCode,
-                modifiers: {
-                  optional: ["any"],
-                },
+        description: `Hyper Key + ${key}`,
+        manipulators: [
+          {
+            ...value,
+            type: "basic" as const,
+            from: {
+              key_code: key as KeyCode,
+              modifiers: {
+                optional: ["any"],
               },
-              conditions: [
-                {
-                  type: "variable_if",
-                  name: "hyper",
-                  value: 1,
-                },
-                ...allSubLayerVariables.map((subLayerVariable) => ({
-                  type: "variable_if" as const,
-                  name: subLayerVariable,
-                  value: 0,
-                })),
-              ],
             },
-          ],
-        }
+            conditions: [
+              {
+                type: "variable_if",
+                name: "hyper",
+                value: 1,
+              },
+              ...allSubLayerVariables.map((subLayerVariable) => ({
+                type: "variable_if" as const,
+                name: subLayerVariable,
+                value: 0,
+              })),
+            ],
+          },
+        ],
+      }
       : {
-          description: `Hyper Key sublayer "${key}"`,
-          manipulators: createHyperSubLayer(
-            key as KeyCode,
-            value,
-            allSubLayerVariables
-          ),
-        }
+        description: `Hyper Key sublayer "${key}"`,
+        manipulators: createHyperSubLayer(
+          key as KeyCode,
+          value,
+          allSubLayerVariables
+        ),
+      }
   );
 }
 
@@ -210,4 +222,15 @@ export function rectangle(name: string): LayerCommand {
  */
 export function app(name: string): LayerCommand {
   return open(`-a '${name}.app'`);
+}
+
+export function superPress(letter: string) {
+  return {
+    to: [
+      {
+        key_code: letter,
+        modifiers: ["left_command", "left_shift", "left_option", "left_command", "left_control"],
+      } as To
+    ]
+  }
 }
