@@ -1,6 +1,13 @@
 import fs from "fs";
 import { KarabinerRules } from "./types";
-import { createHyperSubLayers, app, open, generateUnsetForEveryKey, superPress } from "./utils";
+import {
+  createHyperSubLayers,
+  app,
+  open,
+  generateUnsetForEveryKey,
+  superPress,
+} from "./utils";
+
 const rules: KarabinerRules[] = [
   {
     description: "Hyper Key (⌃⌥⇧⌘)",
@@ -32,6 +39,18 @@ const rules: KarabinerRules[] = [
         ],
         type: "basic",
       },
+      {
+        description: "Caps lock escape",
+        from: {
+          key_code: "caps_lock",
+        },
+        to: [
+          {
+            key_code: "escape",
+          },
+        ],
+        type: "basic",
+      },
     ],
   },
   ...createHyperSubLayers({
@@ -39,50 +58,46 @@ const rules: KarabinerRules[] = [
       "raycast://extensions/stellate/mxstbr-commands/create-notion-todo"
     ),
 
-    q: app(
-      "Discord PTB"
-    ),
-    i: app(
-      "Ghostty"
-    ),
+    q: app("Legcord"),
+    i: app("Ghostty"),
+    w: app("Element"),
     a: app("Zen Browser"),
-    c: open("raycast://extensions/raycast/raycast/confetti"),
-
+    m: app("Messages"),
 
     // b = "B"rowse
     b: {
       t: open("https://twitter.com"),
       r: open("https://reddit.com"),
       v: open("https://youtube.com"),
+      c: open("https://smu.instructure.com/"),
     },
 
     // o = "Open" applications
     o: {
-      1: app("1Password"),
-      g: app("Google Chrome"),
-      e: app("Notion Calendar"),
+      q: app("Legcord"),
+      p: app("Firefox"),
+      i: app("Ghostty"),
       w: app("Element"),
-      q: app("Discord PTB"),
+      a: app("Zen Browser"),
+      m: app("Messages"),
+      1: app("1Password"),
+      c: app("Notion Calendar"),
       n: app("Notion"),
       r: app("AI"),
       // Open todo list managed via *H*ypersonic
-      h: open(
-        "notion://www.notion.so/stellatehq/7b33b924746647499d906c55f89d5026"
-      ),
       z: app("zoom.us"),
       f: app("Finder"),
-      // "i"Message
-      i: app("Ghostty"),
-      // "W"hatsApp has been replaced by Texts
-      m: app("Messages"),
-      s: app("Spotify")
+      s: app("Spotify"),
     },
 
     // spotify
     s: {
       l: superPress("l"),
-      c: open("https://open.spotify.com/album/1GG6U2SSJPHO6XsFiBzxYv?si=sAfC6AtNRFO8cavhPXTYBA"),
-      e: superPress("e")
+      c: open(
+        "https://open.spotify.com/album/1GG6U2SSJPHO6XsFiBzxYv?si=sAfC6AtNRFO8cavhPXTYBA"
+      ),
+      f: open("raycast://extensions/mattisssa/spotify-player/search"),
+      n: open("raycast://extensions/mattisssa/spotify-player/nowPlaying"),
     },
 
     // d = "device"
@@ -137,6 +152,13 @@ const rules: KarabinerRules[] = [
           },
         ],
       },
+      h: {
+        to: [
+          {
+            key_code: "rewind",
+          },
+        ],
+      },
       // "D"o not disturb toggle
       d: open(
         `raycast://extensions/yakitrak/do-not-disturb/toggle?launchType=background`
@@ -175,24 +197,17 @@ const rules: KarabinerRules[] = [
     // r = "Raycast"
     r: {
       c: open("raycast://extensions/thomas/color-picker/pick-color"),
-      n: open("raycast://script-commands/dismiss-notifications"),
-      l: open(
-        "raycast://extensions/stellate/mxstbr-commands/create-mxs-is-shortlink"
-      ),
       e: open(
         "raycast://extensions/raycast/emoji-symbols/search-emoji-symbols"
       ),
-      p: open("raycast://extensions/raycast/raycast/confetti"),
-      a: open("raycast://extensions/raycast/raycast-ai/ai-chat"),
-      s: open("raycast://extensions/peduarte/silent-mention/index"),
-      h: open(
-        "raycast://extensions/raycast/clipboard-history/clipboard-history"
-      ),
-      1: open(
-        "raycast://extensions/VladCuciureanu/toothpick/connect-favorite-device-1"
-      ),
-      2: open(
-        "raycast://extensions/VladCuciureanu/toothpick/connect-favorite-device-2"
+      // Yay
+      y: open("raycast://extensions/raycast/raycast/confetti"),
+      t: open("raycast://extensions/reboot/hypersonic/index"),
+      h: open("raycast://extensions/mattisssa/spotify-player/nowPlaying"),
+      f: open("raycast://extensions/raycast/raycast-focus/start-focus-session"),
+      p: open("raycast://extensions/raycast/raycast-focus/pause-focus-session"),
+      s: open(
+        "raycast://extensions/raycast/raycast-focus/resume-focus-session"
       ),
     },
   }),
@@ -211,7 +226,7 @@ fs.writeFileSync(
           complex_modifications: {
             rules,
           },
-          "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
+          virtual_hid_keyboard: { keyboard_type_v2: "ansi" },
         },
       ],
     },
