@@ -8,6 +8,8 @@ import {
   superPress,
 } from "./utils";
 
+const BROWSER = "Zen Browser";
+
 const rules: KarabinerRules[] = [
   {
     description: "Hyper Key (⌃⌥⇧⌘)",
@@ -61,16 +63,20 @@ const rules: KarabinerRules[] = [
     q: app("Legcord"),
     i: app("Ghostty"),
     w: app("Element"),
-    a: app("Zen Browser"),
+    a: app(BROWSER),
     m: app("Messages"),
 
     // b = "B"rowse
     b: {
-      t: open("https://twitter.com"),
-      r: open("https://reddit.com"),
+      // t: open("https://twitter.com"),
+      // r: open("https://reddit.com"),
       v: open("https://youtube.com"),
       c: open("https://smu.instructure.com/"),
+      a: open("https://t3.chat/chat"),
+      l: open("https://librechat.drewh.net/c/new"),
     },
+
+    h: open("raycast://extensions/raycast/clipboard-history/clipboard-history"),
 
     // o = "Open" applications
     o: {
@@ -78,7 +84,7 @@ const rules: KarabinerRules[] = [
       p: app("Firefox"),
       i: app("Ghostty"),
       w: app("Element"),
-      a: app("Zen Browser"),
+      a: app(BROWSER),
       m: app("Messages"),
       1: app("1Password"),
       c: app("Notion Calendar"),
