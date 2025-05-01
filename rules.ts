@@ -6,14 +6,32 @@ import {
   open,
   generateUnsetForEveryKey,
   superPress,
+  shell,
 } from "./utils";
 
-const BROWSER = "Zen Browser";
+const BROWSER = "Zen";
+const TERMINAL = "Ghostty";
 
 const rules: KarabinerRules[] = [
   {
     description: "Hyper Key (⌃⌥⇧⌘)",
     manipulators: [
+      {
+        description: "I bought a dumb keyboard",
+        from: {
+          key_code: "left_control",
+        },
+        to: [{ key_code: "fn" }],
+        type: "basic",
+      },
+      {
+        description: "I bought a dumb keyboard part 2",
+        from: {
+          key_code: "fn",
+        },
+        to: [{ key_code: "left_control" }],
+        type: "basic",
+      },
       {
         description: "Right_CMd -> Hyper Key",
         from: {
@@ -61,15 +79,15 @@ const rules: KarabinerRules[] = [
     ),
 
     q: app("Legcord"),
-    i: app("Ghostty"),
+    i: app(TERMINAL),
     w: app("Element"),
     a: app(BROWSER),
     m: app("Messages"),
 
     // b = "B"rowse
     b: {
-      // t: open("https://twitter.com"),
-      // r: open("https://reddit.com"),
+      t: open("https://twitter.com"),
+      r: open("https://reddit.com"),
       v: open("https://youtube.com"),
       c: open("https://smu.instructure.com/"),
       a: open("https://t3.chat/chat"),
@@ -82,17 +100,18 @@ const rules: KarabinerRules[] = [
     o: {
       q: app("Legcord"),
       p: app("Firefox"),
-      i: app("Ghostty"),
+      f: app("Finder"),
+      i: app(TERMINAL),
       w: app("Element"),
-      a: app(BROWSER),
+      a: app("Arc"),
       m: app("Messages"),
       1: app("1Password"),
       c: app("Notion Calendar"),
-      n: app("Notion"),
+      n: app("Notes"),
       r: app("AI"),
       // Open todo list managed via *H*ypersonic
       z: app("zoom.us"),
-      f: app("Finder"),
+      d: app("Figma"),
       s: app("Spotify"),
     },
 
@@ -215,6 +234,13 @@ const rules: KarabinerRules[] = [
       s: open(
         "raycast://extensions/raycast/raycast-focus/resume-focus-session"
       ),
+    },
+    equal_sign: {
+      to: [
+        {
+          shell_command: "~/.config/scripts/shutdown.sh",
+        },
+      ],
     },
   }),
 ];

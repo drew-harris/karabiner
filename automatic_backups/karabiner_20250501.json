@@ -11,30 +11,6 @@
             "description": "Hyper Key (⌃⌥⇧⌘)",
             "manipulators": [
               {
-                "description": "I bought a dumb keyboard",
-                "from": {
-                  "key_code": "left_control"
-                },
-                "to": [
-                  {
-                    "key_code": "fn"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "description": "I bought a dumb keyboard part 2",
-                "from": {
-                  "key_code": "fn"
-                },
-                "to": [
-                  {
-                    "key_code": "left_control"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
                 "description": "Right_CMd -> Hyper Key",
                 "from": {
                   "key_code": "right_command",
